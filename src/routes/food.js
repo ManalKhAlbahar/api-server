@@ -27,19 +27,16 @@ async function getFoodById(req,res) {
     res.status(200).json(foodId);
 }
 
-async function updateFood(req,res) {
-    let body = req.body;
-    let bodyId =req.params.id;
-    let foodUpdate = await FoodCollection.updateRecord(body,bodyId);
-    res.status(201).json(foodUpdate);
+async function deleteFood(req,res){
+    let deletedId = parseInt(req.params.id);
+    let deletedfood = await foodCollection.deleteRecord(deletedId);
+    res.status(204).json(deletedfood);
 }
 
-async function deleteFood(req,res) {
-        let deletedId = parseInt(req.params.id);
-        let deletedFood = await FoodCollection.removeRecord(deletedId);
-        res.status(204).json(deletedFood);
-    }
-
-
-
+async function updateFood(req,res){
+ let body =req.body;
+ let id = req.params.id;  
+    const Updatedfood = await foodCollection.updateRecord(body,id);
+    res.status(201).json(Updatedfood);
+}
 module.exports = router;
